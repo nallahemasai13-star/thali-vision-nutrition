@@ -40,7 +40,7 @@ export const analyzeFood = createServerFn({ method: "POST" })
     if (!detected || detected !== data.mime) {
       return { ...base, error: "The file isn't a valid JPG or PNG image. It may be corrupted." };
     }
-    const apiKey = process.env.LOVABLE_API_KEY;
+    const apiKey = process.env["LOVABLE_API_KEY"];
     if (!apiKey) return { ...base, inference_available: false, error: "Food recognition is not configured." };
 
     const { data: foods, error: dbErr } = await context.supabase.from("foods").select("slug,name");
