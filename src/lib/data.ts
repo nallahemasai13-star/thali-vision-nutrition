@@ -26,7 +26,7 @@ export const catalogQuery = queryOptions({
       const sp = f.food_model_support?.[0] ?? null;
       return {
         ...f,
-        nutrition: nf ? { ...nf, source: (nf as { nutrition_sources: CatalogFood["nutrition"] extends infer N ? N extends { source: infer S } ? S : null : null }).nutrition_sources ?? null } : null,
+        nutrition: nf ? { ...nf, source: (nf as unknown as { nutrition_sources: unknown }).nutrition_sources ?? null } : null,
         support: sp,
       } as unknown as CatalogFood;
     });
