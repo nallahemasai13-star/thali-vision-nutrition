@@ -24,11 +24,11 @@ export function FoodPicker({ value, onChange }: { value: string | null; onChange
       <div role="listbox" aria-label="Foods" className="mt-2 grid max-h-64 grid-cols-2 gap-1.5 overflow-auto sm:grid-cols-3">
         {list.length === 0 && <p className="col-span-full py-4 text-sm text-muted-foreground">No catalog food matches "{q}".</p>}
         {list.map((f) => (
-          <button key={f.id} type="button" role="option" aria-selected={value === f.id} onClick={() => onChange(f.id)}
-            className="rounded-lg border px-3 py-2 text-left text-sm transition-colors hover:bg-accent aria-selected:border-primary aria-selected:bg-accent">
+          <Button key={f.id} type="button" variant="outline" role="option" aria-selected={value === f.id} onClick={() => onChange(f.id)}
+            className="h-auto flex-col items-start gap-0 whitespace-normal rounded-lg px-3 py-2 text-left text-sm aria-selected:border-primary aria-selected:bg-accent">
             <span className="font-medium">{f.name}</span>
             <span className="block text-xs text-muted-foreground">{f.category}</span>
-          </button>
+          </Button>
         ))}
       </div>
     </div>
@@ -36,7 +36,8 @@ export function FoodPicker({ value, onChange }: { value: string | null; onChange
 }
 
 export function NutritionTable({ food, servingG }: { food: CatalogFood; servingG: number }) {
-  if (!food.nutrition) {
+  const nutrition = food.nutrition;
+  if (!nutrition) {
     return <p className="flex items-center gap-2 rounded-lg bg-muted p-3 text-sm"><AlertTriangle className="size-4 text-warning" /> Nutrition data is not available for {food.name} yet.</p>;
   }
   const valid = validateServing(servingG) === null;
@@ -51,7 +52,7 @@ export function NutritionTable({ food, servingG }: { food: CatalogFood; servingG
           {rows.map((n) => (
             <tr key={n.key} className="border-b last:border-0">
               <td className="py-2">{n.label}</td>
-              <td className="py-2 text-right text-muted-foreground">{food.nutrition![n.key]} {n.unit}</td>
+              <td className="py-2 text-right text-muted-foreground">{nutrition[n.key]} {n.unit}</td>
               <td className="py-2 text-right font-semibold">{est ? `${est[n.key]} ${n.unit}` : "—"}</td>
             </tr>
           ))}
