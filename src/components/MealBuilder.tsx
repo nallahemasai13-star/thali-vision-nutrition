@@ -41,8 +41,8 @@ export function NutritionTable({ food, servingG }: { food: CatalogFood; servingG
     return <p className="flex items-center gap-2 rounded-lg bg-muted p-3 text-sm"><AlertTriangle className="size-4 text-warning" /> Nutrition data is not available for {food.name} yet.</p>;
   }
   const valid = validateServing(servingG) === null;
-  const est = valid ? calculateNutrition(food.nutrition, servingG) : null;
-  const rows = NUTRIENTS.filter((n) => food.nutrition?.[n.key] != null);
+  const est = valid ? calculateNutrition(nutrition, servingG) : null;
+  const rows = NUTRIENTS.filter((n) => nutrition[n.key] != null);
   const missing = NUTRIENTS.length - rows.length;
   return (
     <div>
@@ -60,7 +60,7 @@ export function NutritionTable({ food, servingG }: { food: CatalogFood; servingG
       </table>
       {missing > 0 && <p className="mt-2 text-xs text-muted-foreground">{missing} nutrients (vitamins, minerals, sugar…) are unavailable for this dish and are not counted as zero.</p>}
       <div className="mt-4 rounded-lg bg-muted p-3 text-xs text-muted-foreground">
-        <p><strong className="text-foreground">Source:</strong> {food.nutrition.source?.name} — matched as "{food.nutrition.source_food_match}". {food.nutrition.verified ? `Verified ${food.nutrition.last_verified_at}.` : "Approximate recipe estimate, not yet verified."}</p>
+        <p><strong className="text-foreground">Source:</strong> {nutrition.source?.name} — matched as "{nutrition.source_food_match}". {nutrition.verified ? `Verified ${nutrition.last_verified_at}.` : "Approximate recipe estimate, not yet verified."}</p>
         <p className="mt-1">Estimates only. Photos can't reveal exact portion weight, hidden oil or ghee, or recipe variations.</p>
       </div>
     </div>

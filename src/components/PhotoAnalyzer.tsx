@@ -111,7 +111,7 @@ export function PhotoAnalyzer() {
       </section>
       {(manual || candidates.length > 0) && <section className="border-t pt-6">
         <h2 className="mb-5 text-2xl font-semibold">Confirm your meal</h2>
-        <MealBuilder key={`${revision}-${manual}`} initialFoodId={selected} imageMeta={predicted && result ? { predicted_class: predicted.class_name, confidence: predicted.confidence, model_version: result.model_version } : undefined} />
+        <MealBuilder key={`${revision}-${manual}`} initialFoodId={selected} {...(predicted && result ? { imageMeta: { predicted_class: predicted.class_name, confidence: predicted.confidence, model_version: result.model_version } } : {})} />
       </section>}
     </div>
   );
