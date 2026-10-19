@@ -1,7 +1,7 @@
 # Current milestone
 - [x] Add photo upload, recognition results, and correction before saving.
 - [x] Show saved meals in history for end-to-end verification.
-- [ ] Verify recognition, saving, tests, and current app errors.
+- [x] Verify recognition, saving, tests, and current app errors.
 
 # Future milestones (outside this photo-analysis milestone)
 - Dashboard, insights, profile, and supported-food pages.
