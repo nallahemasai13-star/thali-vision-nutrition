@@ -1,9 +1,9 @@
-# Current milestone
-- [x] Add photo upload, recognition results, and correction before saving.
-- [x] Show saved meals in history for end-to-end verification.
-- [x] Verify recognition, saving, tests, and current app errors.
+# Current request
+- [ ] Complete real-data Dashboard and daily/weekly Insights with date filters.
+- [ ] Complete Profile with saved display name, dietary preferences, goals and sign-out.
+- [ ] Add live camera preview, permission errors, capture, retake and upload fallback.
+- [ ] Complete Supported Foods and Methodology; verify all navigation.
+- [ ] Test saved data, analytics, camera, loading, empty and error states.
 
-# Future milestones (outside this photo-analysis milestone)
-- Dashboard, insights, profile, and supported-food pages.
-- Password reset and photo-analysis rate limiting.
-- Separate Python model service and training scripts; recover the original brief first.
+# External blocker
+- [ ] Custom trained model requires a hosted inference service and model artifacts; retain the configured vision AI and disclose its actual identity.
