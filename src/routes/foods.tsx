@@ -11,7 +11,9 @@ export const Route = createFileRoute("/foods")({
 
 function Foods() {
   const { data: foods } = useSuspenseQuery(catalogQuery);
-  const groups = Object.entries(Object.groupBy(foods, (f) => f.category || "Other"));
+  const map = new Map<string, typeof foods>();
+  for (const f of foods) { const k = f.category || "Other"; map.set(k, [...(map.get(k) ?? []), f]); }
+  const groups = [...map.entries()];
   return <div>
     <PageHeader title="Supported foods" description={`${foods.length} dishes. "Photo suggestions" means the vision AI may suggest this label; none have been evaluated for accuracy.`} />
     <div className="space-y-8">

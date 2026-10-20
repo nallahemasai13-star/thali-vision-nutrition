@@ -59,7 +59,7 @@ function Dashboard() {
             {meals.data?.length ? <ul className="divide-y border-y">
               {meals.data.slice(0, 5).map((m) => <li key={m.id} className="flex justify-between gap-4 py-3 text-sm">
                 <span>{m.food_name} · {m.serving_g} g</span>
-                <span className="text-muted-foreground">{new Date(m.eaten_at).toLocaleTimeString(undefined, { timeStyle: "short" })} · {m.nutrition_snapshot.calories_kcal ?? "—"} kcal</span>
+                <span className="text-muted-foreground">{new Date(m.eaten_at).toLocaleTimeString(undefined, { timeStyle: "short" })} · {m.nutrition_snapshot["calories_kcal"] ?? "—"} kcal</span>
               </li>)}
             </ul> : <p className="text-sm text-muted-foreground">No meals logged today yet.</p>}
             <Button asChild variant="link" className="mt-2 px-0"><Link to="/history"><History /> View full history</Link></Button>
