@@ -7,6 +7,7 @@ import { catalogQuery } from "@/lib/data";
 import { validateImageFile } from "@/lib/nutrition";
 import { Button } from "@/components/ui/button";
 import { MealBuilder } from "@/components/MealBuilder";
+import { CameraCapture } from "@/components/CameraCapture";
 
 export function PhotoAnalyzer() {
   const { data: foods } = useSuspenseQuery(catalogQuery);
@@ -20,6 +21,7 @@ export function PhotoAnalyzer() {
   const [manual, setManual] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
   const [revision, setRevision] = useState(0);
+  const [camera, setCamera] = useState(false);
 
   const choosePhoto = async (file?: File) => {
     if (!file || busy || reading) return;
@@ -68,6 +70,7 @@ export function PhotoAnalyzer() {
   return (
     <div className="space-y-8">
       <input ref={input} type="file" accept="image/jpeg,image/png" aria-label="Upload food photo" className="sr-only" onChange={onFile} disabled={busy || reading} />
+      {camera && <CameraCapture onClose={() => setCamera(false)} onCapture={(f) => void choosePhoto(f)} />}
       <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <div className="relative flex aspect-[4/3] min-w-0 items-center justify-center overflow-hidden rounded-lg border border-dashed bg-muted"
           onDragOver={(e) => e.preventDefault()} onDrop={(e) => { e.preventDefault(); void choosePhoto(e.dataTransfer.files[0]); }}>
@@ -75,8 +78,11 @@ export function PhotoAnalyzer() {
             <div className="flex flex-col items-center gap-4 px-6 text-center">
               <Camera className="size-12 text-primary" strokeWidth={1.25} aria-hidden />
               <span className="font-display text-xl">Your next meal</span>
-              <Button onClick={() => input.current?.click()} disabled={reading}><Upload /> {reading ? "Opening…" : "Choose photo"}</Button>
-              <span className="text-xs text-muted-foreground">JPG or PNG · up to 5 MB</span>
+              <div className="flex flex-wrap justify-center gap-2">
+                <Button onClick={() => input.current?.click()} disabled={reading}><Upload /> {reading ? "Opening…" : "Choose photo"}</Button>
+                <Button variant="outline" onClick={() => setCamera(true)} disabled={reading || camera}><Camera /> Scan with camera</Button>
+              </div>
+              <span className="text-xs text-muted-foreground">JPG, JPEG or PNG · up to 5 MB · photos are not stored</span>
             </div>
           )}
           {photo && <Button variant="secondary" size="icon" className="absolute right-3 top-3" aria-label="Remove photo" disabled={busy || reading} onClick={() => { setPhoto(null); setResult(null); setSelected(null); setError(""); setManual(false); }}><X /></Button>}
